@@ -1,58 +1,6 @@
-The file contains several programs written in C and Java. Below is a consolidated list of the programs:
+The file contains several programs written in C and Java. Below is a consolidated list of the p
 
-
----
-
-1. XOR a string with Zero
-
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-
-int main() {
-    char str[] = "Hello World";
-    char str1[11];
-    int i, len;
-
-    len = strlen(str);
-    for (i = 0; i < len; i++) {
-        str1[i] = str[i] ^ 0;
-        printf("%c", str1[i]);
-    }
-    printf("\n");
-    return 0;
-}
-
-
----
-
-2. XOR a string with 127
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-void main() {
-    char str[] = "Hello World";
-    char str1[11], str2[11];
-    int i, len;
-
-    len = strlen(str);
-    for (i = 0; i < len; i++) {
-        str1[i] = str[i] & 127;
-        printf("%c", str1[i]);
-    }
-    printf("\n");
-
-    for (i = 0; i < len; i++) {
-        str2[i] = str[i] ^ 127;
-        printf("%c", str2[i]);
-    }
-    printf("\n");
-}
-
-
----
+ 
 
 3. Ceaser Cipher (Encryption & Decryption)
 
@@ -199,6 +147,20 @@ public class DES {
             e.printStackTrace();
         }
         return null;
+    }
+}
+5.importing randon numbers
+
+import java.util.Random;
+
+class generateRandom {
+    public static void main(String[] args) {
+        Random rndm = new Random();
+        System.out.println("A random int: " + rndm.nextInt());
+        System.out.println("A random int from 0 to 49: " + rndm.nextInt(50));
+        System.out.println("A random double: " + rndm.nextDouble());
+        System.out.println("A random float: " + rndm.nextFloat());
+        System.out.println("A random long: " + rndm.nextLong());
     }
 }
 
