@@ -1,0 +1,208 @@
+The file contains several programs written in C and Java. Below is a consolidated list of the programs:
+
+
+---
+
+1. XOR a string with Zero
+
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
+int main() {
+    char str[] = "Hello World";
+    char str1[11];
+    int i, len;
+
+    len = strlen(str);
+    for (i = 0; i < len; i++) {
+        str1[i] = str[i] ^ 0;
+        printf("%c", str1[i]);
+    }
+    printf("\n");
+    return 0;
+}
+
+
+---
+
+2. XOR a string with 127
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void main() {
+    char str[] = "Hello World";
+    char str1[11], str2[11];
+    int i, len;
+
+    len = strlen(str);
+    for (i = 0; i < len; i++) {
+        str1[i] = str[i] & 127;
+        printf("%c", str1[i]);
+    }
+    printf("\n");
+
+    for (i = 0; i < len; i++) {
+        str2[i] = str[i] ^ 127;
+        printf("%c", str2[i]);
+    }
+    printf("\n");
+}
+
+
+---
+
+3. Ceaser Cipher (Encryption & Decryption)
+
+import java.io.*;
+import java.util.Scanner;
+
+public class CeaserCipher {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter any String: ");
+        String str = br.readLine();
+
+        System.out.print("Enter the Key: ");
+        int key = sc.nextInt();
+
+        String encrypted = encrypt(str, key);
+        System.out.println("Encrypted String: " + encrypted);
+
+        String decrypted = decrypt(encrypted, key);
+        System.out.println("Decrypted String: " + decrypted);
+    }
+
+    public static String encrypt(String str, int key) {
+        String encrypted = "";
+        for (int i = 0; i < str.length(); i++) {
+            int c = str.charAt(i);
+            if (Character.isUpperCase(c)) {
+                c = (c + key - 'A') % 26 + 'A';
+            } else if (Character.isLowerCase(c)) {
+                c = (c + key - 'a') % 26 + 'a';
+            }
+            encrypted += (char) c;
+        }
+        return encrypted;
+    }
+
+    public static String decrypt(String str, int key) {
+        String decrypted = "";
+        for (int i = 0; i < str.length(); i++) {
+            int c = str.charAt(i);
+            if (Character.isUpperCase(c)) {
+                c = (c - key - 'A' + 26) % 26 + 'A';
+            } else if (Character.isLowerCase(c)) {
+                c = (c - key - 'a' + 26) % 26 + 'a';
+            }
+            decrypted += (char) c;
+        }
+        return decrypted;
+    }
+}
+
+
+---
+
+4. Substitution Cipher
+
+import java.io.*;
+import java.util.Scanner;
+
+public class SubstitutionCipher {
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String a = "abcdefghijklmnopqrstuvwxyz";
+        String b = "zyxwvutsrqponmlkjihgfedcba";
+
+        System.out.print("Enter any string: ");
+        String str = br.readLine();
+
+        String encrypted = "";
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            int j = a.indexOf(c);
+            encrypted += b.charAt(j);
+        }
+        System.out.println("Encrypted Data: " + encrypted);
+    }
+}
+
+
+---
+
+5. DES Algorithm Logic
+
+import javax.crypto.*;
+import java.io.*;
+import java.security.spec.KeySpec;
+import javax.crypto.spec.DESedeKeySpec;
+
+public class DES {
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.print("Enter the string: ");
+        String inputText = br.readLine();
+
+        DES myEncryptor = new DES();
+        String encrypted = myEncryptor.encrypt(inputText);
+        String decrypted = myEncryptor.decrypt(encrypted);
+
+        System.out.println("Encrypted Value: " + encrypted);
+        System.out.println("Decrypted Value: " + decrypted);
+    }
+
+    private static final String UNICODE_FORMAT = "UTF8";
+    public static final String DESEDE_ENCRYPTION_SCHEME = "DESede";
+
+    private KeySpec keySpec;
+    private SecretKeyFactory keyFactory;
+    private Cipher cipher;
+    private SecretKey key;
+
+    public DES() throws Exception {
+        String encryptionKey = "ThisIsSecretEncryptionKey";
+        byte[] keyAsBytes = encryptionKey.getBytes(UNICODE_FORMAT);
+        keySpec = new DESedeKeySpec(keyAsBytes);
+        keyFactory = SecretKeyFactory.getInstance(DESEDE_ENCRYPTION_SCHEME);
+        cipher = Cipher.getInstance(DESEDE_ENCRYPTION_SCHEME);
+        key = keyFactory.generateSecret(keySpec);
+    }
+
+    public String encrypt(String unencryptedString) {
+        try {
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            byte[] plainText = unencryptedString.getBytes(UNICODE_FORMAT);
+            byte[] encryptedText = cipher.doFinal(plainText);
+            return new sun.misc.BASE64Encoder().encode(encryptedText);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String decrypt(String encryptedString) {
+        try {
+            cipher.init(Cipher.DECRYPT_MODE, key);
+            byte[] encryptedText = new sun.misc.BASE64Decoder().decodeBuffer(encryptedString);
+            byte[] plainText = cipher.doFinal(encryptedText);
+            return new String(plainText);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
+
+
+---
+
+Let me know if you'd like me to include additional programs or explanations!
