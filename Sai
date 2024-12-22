@@ -266,3 +266,44 @@ class jdbcEx{
         }
     }
 }
+
+
+
+
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Enter a Number to Find Its Cube</h1>
+    <form action="cube.jsp" method="GET">
+        <label>Enter a number:</label>
+        <input type="text" name="number" required><br/><br/>
+        <input type="submit" value="Result">
+    </form>
+</body>
+</html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Cube Result</h1>
+    <%! 
+    public int cube(int n) {
+        return n * n * n;
+    }
+    %>
+    <%
+        try {
+            String numberStr = request.getParameter("number");
+            int number = Integer.parseInt(numberStr);
+            int result = cube(number);
+    %>
+            <p>The cube of the given number <%= number %> is <%= result %>.</p>
+    <%
+        } catch (NumberFormatException e) {
+    %>
+            <p>Error: Please enter a valid number.</p>
+    <%
+        }
+    %>
+</body>
+</html>
