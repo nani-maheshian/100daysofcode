@@ -190,3 +190,53 @@ public class VermanCipher {
         System.out.println("Decrypted message: " + String.valueOf(decryptedMsg));
     }
 }
+
+
+
+JSP
+<!DOCTYPE html>
+<html>
+  <body>
+    <form action="welcome.jsp">
+      <label for="uname">Enter your name:</label>
+      <input type="text" name="uname">
+      <input type="submit" value="Go">
+      <br>
+    </form>
+  </body>
+</html><%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+  <body>
+    <%
+      String name = request.getParameter("uname");
+      out.print("Welcome " + name);
+    %>
+  </body>
+</html>
+
+
+
+import java.sql.*;
+
+class JdbcResultExample {
+    public static void main(String[] args) {
+        String driver = "com.mysql.cj.jdbc.Driver";
+        String url = "jdbc:mysql://localhost:3306/school";
+        String username = "root";
+        String password = "tug123";
+
+        try (Connection con = DriverManager.getConnection(url, username, password);
+             Statement stmt = con.createStatement();
+             ResultSet res = stmt.executeQuery("SELECT * FROM Student")) {
+
+            while (res.next()) {
+                System.out.println(res.getInt(1));
+                System.out.println(res.getString(2));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
