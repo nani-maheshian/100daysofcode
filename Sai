@@ -240,3 +240,29 @@ class JdbcResultExample {
         }
     }
 }
+
+
+
+import java.sql.*;
+class jdbcEx{
+    public static void main(String args[])
+    {
+        String driver="com.mysql.jdbc.Driver";
+        String url="jdbc:mysql://localhost:3306/school";
+        String username="root";
+        String password="twr123";
+        try{
+            Class.forName(driver);
+            Connection con=DriverManager.getConnection(url,username,password);
+            Statement smt=con.createStatement();
+            smt.executeUpdate("delete from student where SNO=2");
+            System.out.println("row deleted");
+            con.close();
+            
+            
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+}
